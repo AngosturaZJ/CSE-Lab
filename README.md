@@ -1,4 +1,4 @@
 # CSE-Lab
-### CSE30 Data Structures and Algorithm
+### CSE30 Data Structures
 ### CSE31 Computer Organization
 ### CSE175 Intro to Artificial Intelligence
