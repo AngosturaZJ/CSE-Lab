@@ -24,92 +24,82 @@ import java.io.*;
 public class Pzero {
 
     public static void main(String[] args) {
-	try {
-	    Map graph = new Map();
-	    InputStreamReader converter = new InputStreamReader(System.in);
-	    BufferedReader in = new BufferedReader(converter);
-	    String initialLoc;
-	    String destinationLoc;
-	    Waypoint solution;
-	    int limit = 1000;     // depth limit, to avoid infinite loops
+		try {
+	    	Map graph = new Map();
+	    	InputStreamReader converter = new InputStreamReader(System.in);
+	    	BufferedReader in = new BufferedReader(converter);
+	    	String initialLoc;
+	    	String destinationLoc;
+	    	Waypoint solution;
+	    	int limit = 1000;     // depth limit, to avoid infinite loops
 
-	    System.out.println("UNINFORMED SEARCH ALGORITHM COMPARISON");
-	    // Read map ...
-	    if (!(graph.readMap())) {
-		System.err.println("Error:  Unable to read map.");
-		return;
-	    }
-	    // Get initial and final locations ...
-	    System.out.println("Enter the name of the initial location:");
-	    initialLoc = in.readLine();
-	    System.out.println("Enter the name of the destination location:");
-	    destinationLoc = in.readLine();
+	    	System.out.println("UNINFORMED SEARCH ALGORITHM COMPARISON");
+	    	// Read map ...
+	    	if (!(graph.readMap())) {
+				System.err.println("Error:  Unable to read map.");
+				return;
+	    	}
+	    	// Get initial and final locations ...
+	    	System.out.println("Enter the name of the initial location:");
+	    	initialLoc = in.readLine();
+	    	System.out.println("Enter the name of the destination location:");
+	    	destinationLoc = in.readLine();
 	    
-	    // Testing BFS without repeated state checking ...
-	    System.out.println("TESTING BFS WITHOUT REPEATED STATE CHECKING");
-	    BFSearch bfs 
-		= new BFSearch(graph, initialLoc, destinationLoc, limit);
-	    solution = bfs.search(false);
-	    System.out.println("Solution:");
-	    if (solution == null) {
-		System.out.println("None found.");
-	    } else {
-		solution.reportSolution(System.out);
-		System.out.printf("Path Cost = %f.\n", 
-				  solution.partialPathCost);
-	    }
-	    System.out.printf("Number of Node Expansions = %d.\n", 
-			      bfs.expansionCount);
+	    	// Testing BFS without repeated state checking ...
+	    	System.out.println("TESTING BFS WITHOUT REPEATED STATE CHECKING");
+	    	BFSearch bfs = new BFSearch(graph, initialLoc, destinationLoc, limit);
+	    	solution = bfs.search(false);
+	    	System.out.println("Solution:");
+	    	if (solution == null) {
+				System.out.println("None found.");
+	    	} else {
+				solution.reportSolution(System.out);
+				System.out.printf("Path Cost = %f.\n", solution.partialPathCost);
+	    	}
+	    	System.out.printf("Number of Node Expansions = %d.\n", bfs.expansionCount);
 	    
-	    // Testing BFS with repeated state checking ...
-	    System.out.println("TESTING BFS WITH REPEATED STATE CHECKING");
-	    solution = bfs.search(true);
-	    System.out.println("Solution:");
-	    if (solution == null) {
-		System.out.println("None found.");
-	    } else {
-		solution.reportSolution(System.out);
-		System.out.printf("Path Cost = %f.\n", 
-				  solution.partialPathCost);
-	    }
-	    System.out.printf("Number of Node Expansions = %d.\n", 
-			      bfs.expansionCount);
+	    	// Testing BFS with repeated state checking ...
+	    	System.out.println("TESTING BFS WITH REPEATED STATE CHECKING");
+	    	solution = bfs.search(true);
+	    	System.out.println("Solution:");
+	    	if (solution == null) {
+				System.out.println("None found.");
+	    	} else {
+				solution.reportSolution(System.out);
+				System.out.printf("Path Cost = %f.\n", solution.partialPathCost);
+	    	}
+	    	System.out.printf("Number of Node Expansions = %d.\n", bfs.expansionCount);
 	    
-	    // Testing DFS without repeated state checking ...
-	    System.out.println("TESTING DFS WITHOUT REPEATED STATE CHECKING");
-	    DFSearch dfs 
-		= new DFSearch(graph, initialLoc, destinationLoc, limit);
-	    solution = dfs.search(false);
-	    System.out.println("Solution:");
-	    if (solution == null) {
-		System.out.println("None found.");
-	    } else {
-		solution.reportSolution(System.out);
-		System.out.printf("Path Cost = %f.\n", 
-				  solution.partialPathCost);
-	    }
-	    System.out.printf("Number of Node Expansions = %d.\n", 
-			      dfs.expansionCount);
+	    	// Testing DFS without repeated state checking ...
+	    	System.out.println("TESTING DFS WITHOUT REPEATED STATE CHECKING");
+	    	DFSearch dfs = new DFSearch(graph, initialLoc, destinationLoc, limit);
+	    	solution = dfs.search(false);
+	    	System.out.println("Solution:");
+	    	if (solution == null) {
+				System.out.println("None found.");
+	    	} else {
+				solution.reportSolution(System.out);
+				System.out.printf("Path Cost = %f.\n", solution.partialPathCost);
+	    	}
+	    	System.out.printf("Number of Node Expansions = %d.\n", dfs.expansionCount);
 	    
-	    // Testing DFS with repeated state checking ...
-	    System.out.println("TESTING DFS WITH REPEATED STATE CHECKING");
-	    solution = dfs.search(true);
-	    System.out.println("Solution:");
-	    if (solution == null) {
-		System.out.println("None found.");
-	    } else {
-		solution.reportSolution(System.out);
-		System.out.printf("Path Cost = %f.\n", 
-				  solution.partialPathCost);
-	    }
-	    System.out.printf("Number of Node Expansions = %d.\n", 
-			      dfs.expansionCount);
+	    	// Testing DFS with repeated state checking ...
+	    	System.out.println("TESTING DFS WITH REPEATED STATE CHECKING");
+	    	solution = dfs.search(true);
+	    	System.out.println("Solution:");
+	    	if (solution == null) {
+				System.out.println("None found.");
+	    	} else {
+				solution.reportSolution(System.out);
+				System.out.printf("Path Cost = %f.\n", solution.partialPathCost);
+	    	}
+	    	System.out.printf("Number of Node Expansions = %d.\n", dfs.expansionCount);
 	    
-	    // Done ...
-	    System.out.println("ALGORITHM COMPARISON COMPLETE");
-	} catch (IOException e) {
-	    // Something went wrong ...
-	}
+	    	// Done ...
+	    	System.out.println("ALGORITHM COMPARISON COMPLETE");
+		} catch (IOException e) {
+	    	// Something went wrong ...
+		}
     }
     
 }

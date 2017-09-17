@@ -35,9 +35,9 @@ public class Map {
 
     // Constructor with filenames specified ...
     public Map(String locationFilename, String roadFilename) {
-	this();
-	this.locationFilename = locationFilename;
-	this.roadFilename = roadFilename;
+		this();
+		this.locationFilename = locationFilename;
+		this.roadFilename = roadFilename;
     }
 
     // setLocationFilename -- Record the given pathname of a location file for
@@ -57,33 +57,33 @@ public class Map {
     // file and for a road file.  Record the input pathnames in this Map object
     // for later use during map reading.  Return false on error.
     public boolean promptForFilenames() {
-	try {
-	    InputStreamReader converter = new InputStreamReader(System.in);
-	    BufferedReader in = new BufferedReader(converter);
-	    String buffer;
+		try {
+	    	InputStreamReader converter = new InputStreamReader(System.in);
+	    	BufferedReader in = new BufferedReader(converter);
+	    	String buffer;
 	
-	    System.out.println("Enter the name of the location file:");
-	    buffer = in.readLine();
-	    setLocationFilename(buffer);
-	    System.out.println("Enter the name of the road file:");
-	    buffer = in.readLine();
-	    setRoadFilename(buffer);
-	} catch (IOException e) {
-	    // Something went wrong ...
-	    return (false);
-	}
-	return (true);
+	    	System.out.println("Enter the name of the location file:");
+	    	buffer = in.readLine();
+	    	setLocationFilename(buffer);
+	    	System.out.println("Enter the name of the road file:");
+	    	buffer = in.readLine();
+	    	setRoadFilename(buffer);
+		} catch (IOException e) {
+	    	// Something went wrong ...
+	    	return (false);
+		}
+		return (true);
     }
 
     // findLocation -- Search through the collection of locations on this map
     // for one with the given textual name.  Return a reference to the
     // corresponding Location object, or null if no such location is found.
     public Location findLocation(String name) {
-	for (Location loc : locations) {
-	    if (loc.name.equals(name))
-		return (loc);
-	}
-	return (null);
+		for (Location loc : locations) {
+	    	if (loc.name.equals(name))
+			return (loc);
+		}
+		return (null);
     }
 
     // recordLocation -- Add the given Location object to the collection of
@@ -98,31 +98,29 @@ public class Map {
     // into the Map object's collection of Location objects.  Return false
     // on error.
     public boolean readLocations() {
-	try {
-	    File locFile = new File(locationFilename);
-	    if (locFile.exists() && locFile.canRead()) {
-		FileInputStream locFileIn = new FileInputStream(locFile);
-		InputStreamReader locISReader 
-		    = new InputStreamReader(locFileIn);
-		BufferedReader locBufferedReader
-		    = new BufferedReader(locISReader);
-		// Allocate storage for the first location to be read ...
-		Location loc = new Location();
-		while (loc.read(locBufferedReader)) {
-		    // Record location in the map ...
-		    recordLocation(loc);
-		    // Allocate storage for the next location ...
-		    loc = new Location();
+		try {
+	    	File locFile = new File(locationFilename);
+	    	if (locFile.exists() && locFile.canRead()) {
+			FileInputStream locFileIn = new FileInputStream(locFile);
+			InputStreamReader locISReader = new InputStreamReader(locFileIn);
+			BufferedReader locBufferedReader = new BufferedReader(locISReader);
+			// Allocate storage for the first location to be read ...
+			Location loc = new Location();
+			while (loc.read(locBufferedReader)) {
+		    	// Record location in the map ...
+		    	recordLocation(loc);
+		    	// Allocate storage for the next location ...
+		    	loc = new Location();
+			}
+			return (true);
+	    	} else {
+			// The file cannot be read ...
+			return (false);
+	    	}
+		} catch (IOException e) {
+	    	// Something went wrong ...
+	    	return (false);
 		}
-		return (true);
-	    } else {
-		// The file cannot be read ...
-		return (false);
-	    }
-	} catch (IOException e) {
-	    // Something went wrong ...
-	    return (false);
-	}
     }
 
     // readRoads -- Attempt to open the road file specified by the appropriate
@@ -135,44 +133,40 @@ public class Map {
     // "readLocations" method before calling this method.  Return false on
     // error.
     public boolean readRoads() {
-	try {
-	    File roadFile = new File(roadFilename);
-	    if (roadFile.exists() && roadFile.canRead()) {
-		FileInputStream roadFileIn = new FileInputStream(roadFile);
-		InputStreamReader roadISReader
-		    = new InputStreamReader(roadFileIn);
-		BufferedReader roadBufferedReader
-		    = new BufferedReader(roadISReader);
-		// Allocate storage for the first road segment ot be read ...
-		Road r = new Road();
-		while (r.read(roadBufferedReader)) {
-		    // Fill in connections to location objects ...
-		    r.fromLocation = findLocation(r.fromLocationName);
-		    if (r.fromLocation == null) {
-			System.err.printf("The location, %s, is not known.\n",
-					  r.fromLocationName);
+		try {
+	    	File roadFile = new File(roadFilename);
+	    	if (roadFile.exists() && roadFile.canRead()) {
+			FileInputStream roadFileIn = new FileInputStream(roadFile);
+			InputStreamReader roadISReader = new InputStreamReader(roadFileIn);
+			BufferedReader roadBufferedReader = new BufferedReader(roadISReader);
+			// Allocate storage for the first road segment ot be read ...
+			Road r = new Road();
+			while (r.read(roadBufferedReader)) {
+		    	// Fill in connections to location objects ...
+		    	r.fromLocation = findLocation(r.fromLocationName);
+		    	if (r.fromLocation == null) {
+				System.err.printf("The location, %s, is not known.\n", r.fromLocationName);
+				return (false);
+		    	}
+		    	r.toLocation = findLocation(r.toLocationName);
+		    	if (r.toLocation == null) {
+				System.err.printf("The location, %s, is not known.\n", r.toLocationName);
+				return (false);
+		    	}
+		    	// Record the road in the appropriate location ...
+		    	r.fromLocation.recordRoad(r);
+		    	// Allocate storage for the next road segment ...
+		    	r = new Road();
+			}
+			return (true);
+	    	} else {
+			// The specified road file could not be read ...
 			return (false);
-		    }
-		    r.toLocation = findLocation(r.toLocationName);
-		    if (r.toLocation == null) {
-			System.err.printf("The location, %s, is not known.\n",
-					  r.toLocationName);
-			return (false);
-		    }
-		    // Record the road in the appropriate location ...
-		    r.fromLocation.recordRoad(r);
-		    // Allocate storage for the next road segment ...
-		    r = new Road();
+	    	}
+		} catch (IOException e) {
+	    	// Something went wrong ...
+	    	return (false);
 		}
-		return (true);
-	    } else {
-		// The specified road file could not be read ...
-		return (false);
-	    }
-	} catch (IOException e) {
-	    // Something went wrong ...
-	    return (false);
-	}
     }
 
     // readMap -- Prompt the user for the pathnames of a location file and

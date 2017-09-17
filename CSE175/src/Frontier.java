@@ -40,13 +40,13 @@ public class Frontier {
     // list.  Also, remove this node from the frontier.  Return null if the
     // frontier is empty.
     public Waypoint removeTop() {
-	if (fringe.isEmpty()) {
-	    return (null);
-	} else {
-	    Waypoint top = fringe.get(0);
-	    fringe.remove(0);
-	    return (top);
-	}
+	    if (fringe.isEmpty()) {
+	      return (null);
+	    } else {
+	        Waypoint top = fringe.get(0);
+	        fringe.remove(0);
+	        return (top);
+	    }
     }
 
     // addToTop -- Add the given Waypoint object to the top of the frontier
@@ -58,9 +58,9 @@ public class Frontier {
     // addToTop -- Add the given list of Waypoint objects to the top of the 
     // frontier list.
     public void addToTop(List<Waypoint> points) {
-	for (Waypoint wp : points) {
-	    addToTop(wp);
-	}
+	    for (Waypoint wp : points) {
+	         addToTop(wp);
+	    }
     }
 
     // addToBottom -- Add the given Waypoint object to the bottom of the 
@@ -72,9 +72,9 @@ public class Frontier {
     // addToBottom -- Add the given list of Waypoint objects to the bottom of
     // the frontier list.
     public void addToBottom(List<Waypoint> points) {
-	for (Waypoint wp : points) {
-	    addToBottom(wp);
-	}
+	    for (Waypoint wp : points) {
+	        addToBottom(wp);
+	    }
     }
 
     // contains -- Return true if and only if the frontier contains a
@@ -87,7 +87,7 @@ public class Frontier {
 	    if (name.equals(element.loc.name))
 		return (true);
 	// The location was not found in the fringe ...
-	return (false);
+	    return (false);
     }
 
     // contains -- Return true if and only if the frontier contains a

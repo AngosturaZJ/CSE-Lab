@@ -30,15 +30,15 @@ public class Location {
 
     // Constructor with location name specified ...
     public Location(String name) {
-	this();
-	this.name = name;
+		this();
+		this.name = name;
     }
 
     // Constructor with location name and coordinates specified ...
     public Location(String name, double longitude, double latitude) {
-	this(name);
-	this.longitude = longitude;
-	this.latitude = latitude;
+		this(name);
+		this.longitude = longitude;
+		this.latitude = latitude;
     }
 
     // equals -- Return true if and only if this location has the same name
@@ -57,24 +57,24 @@ public class Location {
 	    String thisLine = str.readLine();
 	    if (thisLine == null)
 		// No more input, at all ...
-		return (false);
+			return (false);
 	    Scanner inScanner = new Scanner(thisLine).useDelimiter("\\s+");
 	    if (inScanner.hasNext()) {
 		// There is something to read ...
-		name = inScanner.next();
+			name = inScanner.next();
 		if (inScanner.hasNextDouble()) {
 		    // There is a longitude to read ...
 		    longitude = inScanner.nextDouble();
 		    if (inScanner.hasNextDouble()) {
 			// There is a latitude to read ...
-			latitude = inScanner.nextDouble();
+				latitude = inScanner.nextDouble();
 		    }
 		}
 		// At least a name was successfully read ...
 		return (true);
 	    } else {
 		// Did not even read a name ...
-		return (false);
+			return (false);
 	    }
 	} catch (IOException e) {
 	    // Something went wrong ...
@@ -86,11 +86,11 @@ public class Location {
     // "showCoords" argument is true, then also output the Cartesian 
     // coordinates of this location, separated by blanks, on the same line.
     public void write(OutputStream str, boolean showCoords) {
-	PrintWriter out = new PrintWriter(str, true);
-	out.printf("%s", name);
-	if (showCoords) {
-	    out.printf(" %f %f", longitude, latitude);
-	}
+		PrintWriter out = new PrintWriter(str, true);
+		out.printf("%s", name);
+		if (showCoords) {
+	   	 out.printf(" %f %f", longitude, latitude);
+		}
     }
 
     // findRoad -- Search the collection of roads leading out of this
@@ -98,11 +98,11 @@ public class Location {
     // location.  Return this Road object if it is found, or null if no
     // matching road is found.
     public Road findRoad(Location destination) {
-	for (Road r : roads) {
-	    if (r.toLocation.equals(destination))
-		return (r);
-	}
-	return (null);
+		for (Road r : roads) {
+	    	if (r.toLocation.equals(destination))
+			return (r);
+		}
+		return (null);
     }
 
     // recordRoad -- Add the given Road object to the collection of roads
