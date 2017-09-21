@@ -49,13 +49,13 @@ vector_t *vector_new() {
 /* Free up the memory allocated for the passed vector */
 void vector_delete(vector_t *v) {
 	/* Remember, you need to free up ALL the memory that is allocated */
-	
+
 
 
 
 
 	/* ADD CODE HERE */
-
+  free(v);
 
 
 
@@ -91,8 +91,27 @@ void vector_set(vector_t *v, size_t loc, int value) {
 
 
 	/* ADD CODE HERE */
-
-
-
+  if (v == NULL){
+    fprintf(stderr, "vector_set: passed a NULL vector. Returning 0.\n");
+    return 0;
+  } else if (loc < v->size){
+    v->data[loc] = value;
+  }else{
+    int* temp = (int*) malloc ((loc+1)*sizeof(int));
+    if (!temp){
+      vector_delete(v);
+    }
+    int i;
+    for (i = 0; i < (loc+1); i++){
+      if (i < v->size){
+	temp[i] = v->data[i];
+      }else{
+	temp[i] = value;
+      }
+    }
+      free(v->data);
+      v->data = temp;
+      v->size = loc + 1;
+    }
 
 }
