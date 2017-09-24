@@ -1,0 +1,36 @@
+Problem 1:
+a) -246
+b) -33
+c) 32735
+d) 21845
+
+Problem 2:
+a) unsigned: 65290
+   sign magnitude: -32522
+   1's complement: -245
+   biased: 32523
+
+b) unsigned: 65503
+   sign magnitude: -32735
+   1's complement: -32
+   biased: 32736
+
+c) unsigned: 32735
+   sign magnitude: 32735
+   1's complement: 32735
+   biased: -32
+
+d) unsigned: 21845
+   sign magnitude: 21845
+   1's complement: 21845
+   biased: -10922
+
+Problem 3:
+a) +infinity: 0111(base 2) = 7(base 10)
+   -infinity: 1000(base 2) = -8(base 10)
+
+b) +infinity: 0111 1111(base 2) = 127(base 10)
+   -infinity: 1111 1111(base 2) = -127(base 10)
+
+c) +infinity: 0111 1111(base 2) = 127(base 10)
+   -infinity: 1000 0000(base 2) = -127(base 10)
