@@ -43,20 +43,20 @@ public class Road {
 		try {
 	    	String thisLine = str.readLine();
 	    	if (thisLine == null)
-			// No more input, at all ...
-			return (false);
+				// No more input, at all ...
+				return (false);
 	    	Scanner inScanner = new Scanner(thisLine).useDelimiter("\\s+");
 	    	if (!inScanner.hasNext()) return (false);
-	    	name = inScanner.next();
+	    		name = inScanner.next();
 	    	if (!inScanner.hasNext()) return (false);
-	    	fromLocationName = inScanner.next();
-	    	fromLocation = null;
+	    		fromLocationName = inScanner.next();
+	    		fromLocation = null;
 	    	if (!inScanner.hasNext()) return (false);
-	    	toLocationName = inScanner.next();
-	    	toLocation = null;
+	    		toLocationName = inScanner.next();
+	    		toLocation = null;
 	    	if (!inScanner.hasNextDouble()) return (false);
-	    	cost = inScanner.nextDouble();
-	    	return (true);
+	    		cost = inScanner.nextDouble();
+	    		return (true);
 		} catch (IOException e) {
 	    	// Something went wrong ...
 	    	return (false);
@@ -75,7 +75,7 @@ public class Road {
 		} else {
 	    	out.printf("%s", name);
 		}
-    	}
+	}
 
 }
 

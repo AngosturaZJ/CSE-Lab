@@ -25,7 +25,7 @@ public class Location {
 
     // Default constructor ...
     public Location() {
-	this.roads = new ArrayList<Road>();
+		this.roads = new ArrayList<Road>();
     }
 
     // Constructor with location name specified ...
@@ -44,7 +44,7 @@ public class Location {
     // equals -- Return true if and only if this location has the same name
     // as the argument location.
     public boolean equals(Location loc) {
-	return (loc.name.equals(this.name));
+		return (loc.name.equals(this.name));
     }
 
     // read -- Read a location description from the given stream into this
@@ -53,33 +53,33 @@ public class Location {
     // floating point numbers.  Return true if at least a name was read and
     // false otherwise.
     public boolean read(BufferedReader str) {
-	try {
-	    String thisLine = str.readLine();
-	    if (thisLine == null)
-		// No more input, at all ...
-			return (false);
-	    Scanner inScanner = new Scanner(thisLine).useDelimiter("\\s+");
-	    if (inScanner.hasNext()) {
-		// There is something to read ...
-			name = inScanner.next();
-		if (inScanner.hasNextDouble()) {
-		    // There is a longitude to read ...
-		    longitude = inScanner.nextDouble();
+		try {
+	    	String thisLine = str.readLine();
+	    	if (thisLine == null)
+			// No more input, at all ...
+				return (false);
+	    	Scanner inScanner = new Scanner(thisLine).useDelimiter("\\s+");
+	    	if (inScanner.hasNext()) {
+				// There is something to read ...
+				name = inScanner.next();
+			if (inScanner.hasNextDouble()) {
+		    	// There is a longitude to read ...
+		    	longitude = inScanner.nextDouble();
 		    if (inScanner.hasNextDouble()) {
-			// There is a latitude to read ...
+				// There is a latitude to read ...
 				latitude = inScanner.nextDouble();
 		    }
+			}
+			// At least a name was successfully read ...
+			return (true);
+	    	} else {
+			// Did not even read a name ...
+				return (false);
+	    	}
+		} catch (IOException e) {
+	    	// Something went wrong ...
+	    	return (false);
 		}
-		// At least a name was successfully read ...
-		return (true);
-	    } else {
-		// Did not even read a name ...
-			return (false);
-	    }
-	} catch (IOException e) {
-	    // Something went wrong ...
-	    return (false);
-	}
     }
 
     // write -- Write the name of this location to the given stream.  If the
@@ -89,7 +89,7 @@ public class Location {
 		PrintWriter out = new PrintWriter(str, true);
 		out.printf("%s", name);
 		if (showCoords) {
-	   	 out.printf(" %f %f", longitude, latitude);
+			out.printf(" %f %f", longitude, latitude);
 		}
     }
 
@@ -108,7 +108,7 @@ public class Location {
     // recordRoad -- Add the given Road object to the collection of roads
     // leading out of this location.
     public void recordRoad(Road r) {
-	roads.add(r);
+		roads.add(r);
     }
 
 }
