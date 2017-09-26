@@ -19,44 +19,49 @@ public class BFSearch {
 
     // Breadth-first search (Stack, FILO)
     public Waypoint search (boolean true_or_false) {
-        expansionCount = 0;
-        Waypoint node = new Waypoint(graph.findLocation(initialLoc));   // create a node that contains start point
-        Frontier frontier = new Frontier(); // create a frontier to store all children of the node
-        frontier.addToBottom(node); // store start point into frontier
+        Waypoint node = new Waypoint(graph.findLocation(initialLoc));   // set start point as parent node
+        expansionCount = 0; // no expansion happen so far
 
-        // BFS with state checking
-        if (true_or_false == true) {
-            // create HashSet to store every node that has been explored
-            HashSet<String> state_check = new HashSet<String>();
+        if (node.loc.name == destinationLoc){
+            return node;    // return parent node if initialLoc and destinationLoc are the same
+        } else {
+            Frontier frontier = new Frontier(); // create a frontier to store nodes
+            frontier.addToBottom(node); // add parent node to frontier first
 
-            while (!frontier.isEmpty() && node.depth < limit - 1) {
-                node = frontier.removeTop();
-                if (node.isFinalDestination(destinationLoc)) {
-                    return node;
-                } else {
-                    state_check.add(node.loc.name);
-                    node.expand();
-                    expansionCount++;
-                    for (Waypoint i : node.options) {
-                        if (!frontier.contains(i.loc.name) && !state_check.contains(i.loc.name)){
-                            frontier.addToBottom(i);
+            // BFS with repeated state check
+            if (true_or_false == true) {
+                HashSet<String> explored = new HashSet<>();    // create a HashSet to store nodes for repeat state check
+                while (!frontier.isEmpty() && node.depth < limit - 1) {
+                    node = frontier.removeTop();
+
+                    if (node.isFinalDestination(destinationLoc)) {
+                        return node;
+                    } else {
+                        explored.add(node.loc.name);
+                        node.expand();
+                        expansionCount++;
+
+                        for (Waypoint i : node.options) {
+                            if (!explored.contains(i.loc.name) && !frontier.contains(i)) {
+                                frontier.addToBottom(i);
+                            }
                         }
                     }
                 }
-            }
-            return null;
-        } else {
-            while (!frontier.isEmpty() && node.depth < limit - 1) {
-                node = frontier.removeTop();
-                if (node.isFinalDestination(destinationLoc)) {
-                    return node;
-                } else {
-                    node.expand();
-                    expansionCount++;
-                    frontier.addToBottom(node.options);
+                return null;
+            } else {
+                while (!frontier.isEmpty() && node.depth < limit - 1) {
+                    node = frontier.removeTop();
+                    if (node.isFinalDestination(destinationLoc)) {
+                        return node;
+                    } else {
+                        node.expand();
+                        expansionCount++;
+                        frontier.addToBottom(node.options);
+                    }
                 }
+                return null;
             }
-            return null;
         }
     }
 }
