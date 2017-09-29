@@ -33,19 +33,19 @@ public class Waypoint {
 
     // Default constructor ...
     public Waypoint() {
-	this.options = new ArrayList<Waypoint>();
+		this.options = new ArrayList<Waypoint>();
     }
 
     // Constructor with Location object specified ...
     public Waypoint(Location loc) {
-	this();
-	this.loc = loc;
+		this();
+		this.loc = loc;
     }
 
     // Constructor with Location object and parent node specified ...
     public Waypoint(Location loc, Waypoint previous) {
-	this(loc);
-	this.previous = previous;
+		this(loc);
+		this.previous = previous;
     }
 
     // expand -- Fill in the collection of children of this node, stored in
@@ -54,14 +54,14 @@ public class Waypoint {
     // is correctly calculated.  This version of this method, which takes no
     // arguments, always sets the heuristic values of nodes to zero.
     public void expand() {
-	options.removeAll(options);
-	for (Road r : loc.roads) {
-	    Waypoint option = new Waypoint(r.toLocation, this);
-	    option.depth = this.depth + 1;
-	    option.partialPathCost = this.partialPathCost + r.cost;
-	    option.heuristicValue = 0.0;
-	    options.add(option);
-	}
+		options.removeAll(options);
+		for (Road r : loc.roads) {
+	    	Waypoint option = new Waypoint(r.toLocation, this);
+	    	option.depth = this.depth + 1;
+	    	option.partialPathCost = this.partialPathCost + r.cost;
+	    	option.heuristicValue = 0.0;
+	    	options.add(option);
+		}
     }
 
     // expand -- Fill in the collection of children of this node, stored in
@@ -71,20 +71,20 @@ public class Waypoint {
     // heuristic function object as an argument, uses the given heuristic
     // function to fill in the heuristic values of the children nodes.
     public void expand(Heuristic h) {
-	options.removeAll(options);
-	for (Road r : loc.roads) {
-	    Waypoint option = new Waypoint(r.toLocation, this);
-	    option.depth = this.depth + 1;
-	    option.partialPathCost = this.partialPathCost + r.cost;
-	    option.heuristicValue = h.heuristicFunction(option);
-	    options.add(option);
-	}
+		options.removeAll(options);
+		for (Road r : loc.roads) {
+	    	Waypoint option = new Waypoint(r.toLocation, this);
+	    	option.depth = this.depth + 1;
+	    	option.partialPathCost = this.partialPathCost + r.cost;
+	    	option.heuristicValue = h.heuristicFunction(option);
+	    	options.add(option);
+		}
     }
 
     // isFinalDestination -- Return true if and only if the name of the
     // location corresponding to this node matches the provided argument.
     public boolean isFinalDestination(String destinationName) {
-	return (loc.name.equals(destinationName));
+        return (loc.name.equals(destinationName));
     }
 
     // reportSolution -- Output a textual description of the path from the 
@@ -93,20 +93,20 @@ public class Waypoint {
     // recursive; a recursive call outputs the path up to the parent of this
     // node before the final road segment in the path is described.
     public void reportSolution(OutputStream str) {
-	PrintWriter out = new PrintWriter(str, true);
-	if (previous == null) {
-	    // This is the starting point ...
-	    out.printf("START AT ");
-	    loc.write(str, false);
-	    out.printf(".\n");
-	} else {
-	    // First provide the solution up until this point ...
-	    previous.reportSolution(str);
-	    // Now report the road segment to this point ...
-	    out.printf("TAKE ");
-	    (previous.loc.findRoad(loc)).write(str, true);
-	    out.printf(".\n");
-	}
+	    PrintWriter out = new PrintWriter(str, true);
+	    if (previous == null) {
+	        // This is the starting point ...
+	        out.printf("START AT ");
+	        loc.write(str, false);
+	        out.printf(".\n");
+	    } else {
+	        // First provide the solution up until this point ...
+	        previous.reportSolution(str);
+	        // Now report the road segment to this point ...
+	        out.printf("TAKE ");
+	        (previous.loc.findRoad(loc)).write(str, true);
+	        out.printf(".\n");
+	    }
     }
 
 }

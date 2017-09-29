@@ -40,27 +40,27 @@ public class Road {
     // floating point incremental path cost.  Return true if and only if all
     // fields are successfully read.
     public boolean read(BufferedReader str) {
-	try {
-	    String thisLine = str.readLine();
-	    if (thisLine == null)
-		// No more input, at all ...
-		return (false);
-	    Scanner inScanner = new Scanner(thisLine).useDelimiter("\\s+");
-	    if (!inScanner.hasNext()) return (false);
-	    name = inScanner.next();
-	    if (!inScanner.hasNext()) return (false);
-	    fromLocationName = inScanner.next();
-	    fromLocation = null;
-	    if (!inScanner.hasNext()) return (false);
-	    toLocationName = inScanner.next();
-	    toLocation = null;
-	    if (!inScanner.hasNextDouble()) return (false);
-	    cost = inScanner.nextDouble();
-	    return (true);
-	} catch (IOException e) {
-	    // Something went wrong ...
-	    return (false);
-	}
+		try {
+	    	String thisLine = str.readLine();
+	    	if (thisLine == null)
+				// No more input, at all ...
+				return (false);
+	    	Scanner inScanner = new Scanner(thisLine).useDelimiter("\\s+");
+	    	if (!inScanner.hasNext()) return (false);
+	    		name = inScanner.next();
+	    	if (!inScanner.hasNext()) return (false);
+	    		fromLocationName = inScanner.next();
+	    		fromLocation = null;
+	    	if (!inScanner.hasNext()) return (false);
+	    		toLocationName = inScanner.next();
+	    		toLocation = null;
+	    	if (!inScanner.hasNextDouble()) return (false);
+	    		cost = inScanner.nextDouble();
+	    		return (true);
+		} catch (IOException e) {
+	    	// Something went wrong ...
+	    	return (false);
+		}
     }
 
     // write -- Write a description of this Road object to the given stream.
@@ -69,13 +69,12 @@ public class Road {
     // the road segment that includes the names of the "from" and "to" 
     // locations.
     public void write(OutputStream str, boolean showLocs) {
-	PrintWriter out = new PrintWriter(str, true);
-	if (showLocs) {
-	    out.printf("%s FROM %s TO %s", 
-		       name, fromLocationName, toLocationName);
-	} else {
-	    out.printf("%s", name);
-	}
+		PrintWriter out = new PrintWriter(str, true);
+		if (showLocs) {
+	    	out.printf("%s FROM %s TO %s", name, fromLocationName, toLocationName);
+		} else {
+	    	out.printf("%s", name);
+		}
     }
 
 }

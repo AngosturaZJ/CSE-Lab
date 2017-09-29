@@ -18,24 +18,24 @@ public class Heuristic {
 
     // Default constructor ...
     public Heuristic() {
-    	this.destination = null;
+        this.destination = null;
     }
     
     // Constructor with desination Location object specified ...
     public Heuristic(Location destination) {
-	this.destination = destination;
+        this.destination = destination;
     }
 
     // getDestination -- Return the destination being used by this heuristic
     // function.
     public Location getDestination() {
-	return (destination);
+        return (destination);
     }
 
     // setDestination -- Set the destination location to be used by this
     // heuristic function to the given location.
     public void setDestination(Location destination) {
-	this.destination = destination;
+        this.destination = destination;
     }
 
     // heuristicFunction -- Return the appropriate heuristic values for the
@@ -45,7 +45,7 @@ public class Heuristic {
     // from this one should override this method to do something more
     // reasonable.
     public double heuristicFunction(Waypoint wp) {
-	return (0.0);
+        return (0.0);
     }
 
 }

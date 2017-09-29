@@ -32,57 +32,57 @@ class WaypointComparator implements Comparator<Waypoint>, Serializable {
 
     // Default constructor ...
     public WaypointComparator() {
-	this.statistic = SortBy.g;
+		this.statistic = SortBy.g;
     }
 
     // Constructor with sorting criterion argument ...
     public WaypointComparator(SortBy strategy) {
-	this.statistic = strategy;
+		this.statistic = strategy;
     }
 
     // compare -- Determine which of two Waypoints is "larger", according
     // to the Comparator protocol.
     public int compare(Waypoint wp1, Waypoint wp2) {
-	// Extract the appropriate statistics ...
-	double val1 = 0.0;
-	double val2 = 0.0;
-	switch (statistic) {
-	case g:
-	    val1 = wp1.partialPathCost;
-	    val2 = wp2.partialPathCost;
-	    break;
-	case h:
-	    val1 = wp1.heuristicValue;
- 	    val2 = wp2.heuristicValue;
-	    break;
-	case f:
-	    val1 = wp1.partialPathCost + wp1.heuristicValue;
-	    val2 = wp2.partialPathCost + wp2.heuristicValue;
-	    break;
-	}
-	// Compare values ...
-	if (val1 < val2)
-	    return (-1);
-	if (val1 > val2)
-	    return (1);
-	if (wp1.equals(wp2)) {
-	    // This is the exact same Waypoint ...
-	    return (0);
-	} else {
-	    // These are two Waypoint objects with the same value, but we 
-	    // still need to put them in some order.  Otherwise, two nodes
-	    // with the same value will "overwrite" each other ...
-	    if (wp1.loc.equals(wp2.loc)) {
-		// Even the locations are the same, so order the two nodes
-		// based on the ordering of their parents in the search 
-		// tree ...
-		return (this.compare(wp1.previous, wp2.previous));
-	    } else {
-		// The locations differ, so we can use the alphabetical
-		// ordering of their names to order the nodes ...
-		return (wp1.loc.name.compareTo(wp2.loc.name));
-	    }
-	}
+		// Extract the appropriate statistics ...
+		double val1 = 0.0;
+		double val2 = 0.0;
+		switch (statistic) {
+			case g:
+	    		val1 = wp1.partialPathCost;
+	    		val2 = wp2.partialPathCost;
+	    		break;
+			case h:
+	    		val1 = wp1.heuristicValue;
+ 	    		val2 = wp2.heuristicValue;
+	    		break;
+			case f:
+	    		val1 = wp1.partialPathCost + wp1.heuristicValue;
+	    		val2 = wp2.partialPathCost + wp2.heuristicValue;
+	    		break;
+		}
+		// Compare values ...
+		if (val1 < val2)
+			return (-1);
+		if (val1 > val2)
+	    	return (1);
+		if (wp1.equals(wp2)) {
+	    	// This is the exact same Waypoint ...
+	    	return (0);
+		} else {
+	    	// These are two Waypoint objects with the same value, but we
+	    	// still need to put them in some order.  Otherwise, two nodes
+	    	// with the same value will "overwrite" each other ...
+	    	if (wp1.loc.equals(wp2.loc)) {
+			// Even the locations are the same, so order the two nodes
+			// based on the ordering of their parents in the search
+			// tree ...
+				return (this.compare(wp1.previous, wp2.previous));
+	    	} else {
+				// The locations differ, so we can use the alphabetical
+				// ordering of their names to order the nodes ...
+				return (wp1.loc.name.compareTo(wp2.loc.name));
+	    	}
+		}
     }
 
 }
