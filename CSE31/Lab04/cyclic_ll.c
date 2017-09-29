@@ -7,8 +7,22 @@ typedef struct node {
 
 int has_cycle(node *head)
 {
+  if (head == NULL) {
+    return 0;
+  }
+  node* First = head;
+  node* Second = head;
 
-}
+  while (Second != NULL && Second->next != NULL) {
+    First = First->next;
+    Second = Second->next->next;
+    if (First == Second) {
+      return 1;
+    }
+  }
+  return 0;
+    
+ }
 
 void test_has_cycle(void)
 {

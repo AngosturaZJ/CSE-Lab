@@ -1,0 +1,4 @@
+1) missing a bracket
+2) add the missing bracket to the last line of source file
+3) enter gdb with the source file and type "run". C does not have encapsulation to provide function of bunds-checking
+4) the pro are that it is more efficient to compile the code and programmer can have free pointers to roam. the con is that compiler cannot report such error to programmer
