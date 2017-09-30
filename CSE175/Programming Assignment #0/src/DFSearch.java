@@ -18,6 +18,8 @@ public class DFSearch {
     }
 
     // Depth-first search (Stack, FILO)
+    // This search function uses Depth-first algorithm to find the path from start point to final destination
+    // The argument true_or_false is used to check whether the function should use repeated state check or not
     public Waypoint search(boolean true_or_false) {
 
         Waypoint node = new Waypoint(graph.findLocation(initialLoc));   // set start point as parent node
@@ -26,7 +28,7 @@ public class DFSearch {
         if (node.loc.name == destinationLoc){
             return node;    // return parent node if initialLoc and destinationLoc are the same
         } else {
-            Frontier frontier = new Frontier(); // create a frontier to store nodes
+            Frontier frontier = new Frontier(); // create a frontier to store current node's child nodes
             frontier.addToBottom(node); // add parent node to the frontier
 
             // BFS with repeated state check
