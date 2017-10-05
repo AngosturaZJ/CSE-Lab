@@ -11,4 +11,8 @@ public class GreedySearch {
         this.destinationLoc = destinationLoc;
         this.limit = limit;
     }
+
+    public Waypoint search(boolean trueOrfalse) {
+
+    }
 }
