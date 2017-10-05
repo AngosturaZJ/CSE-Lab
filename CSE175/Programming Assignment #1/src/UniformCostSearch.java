@@ -3,6 +3,7 @@ public class UniformCostSearch {
     String initialLoc;
     String destinationLoc;
     int limit;
+    int expansionCount;
 
     UniformCostSearch(Map graph, String initialLoc, String destinationLoc, int limit) {
         this.graph = graph;

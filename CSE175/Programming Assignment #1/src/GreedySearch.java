@@ -3,6 +3,7 @@ public class GreedySearch {
     String initialLoc;
     String destinationLoc;
     int limit;
+    int expansionCount;
 
     GreedySearch(Map graph, String initialLoc, String destinationLoc, int limit) {
         this.graph = graph;
