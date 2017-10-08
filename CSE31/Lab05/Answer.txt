@@ -1,0 +1,6 @@
+1) The .data directive means declare and store variables in memory. The .word directive means create a single integer variable with initial value n. The .txt is where instructions goes
+2) Check the breakpoint box "Bkpt" of the line that you want to break
+3) Click "run" button
+4) Go to the rigister that you want to change, click on it and change its value
+5) n is stored at 0x10010000 change to .word 13, you will get 233 as the 13 fibanocci number
+6) In this program, syscall gets the output from instructions and print it out
