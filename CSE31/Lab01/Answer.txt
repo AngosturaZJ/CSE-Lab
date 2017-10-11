@@ -1,0 +1,19 @@
+1) -c flage compiles the source file without linking
+
+2) -o flage creates an executable file
+
+3) gdb output0
+
+4) break main
+
+5) run
+
+6) step
+
+7) 32 bits
+
+8) 64 bits or 32 bits (depending on the system)
+
+9) Yes, they are both 32 bits
+
+10) 2's complement number lines have one more negative number compare to positive number. Therefore, the most negative number does not have a corresponding positive number.

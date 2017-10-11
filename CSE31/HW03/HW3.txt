@@ -1,0 +1,59 @@
+Problem 1:
+2.1) addi $s2, $s2, -5
+     add  $s0, $s1, $s2
+
+2.2) int f, g, h, i;
+     f = g + h;
+     f = f + i;
+
+2.3) sub $t0, $s3, $s4
+     sll $t0, $t0, 2
+     add $t0, $t0, $s6
+     lw  $t0, 0($t0)
+     sw	 $t0, 32($s7)
+
+2.4) B[g] = f;
+     B[g] = A[f] + A[f+1];
+          
+2.5) sll $t0, $s0, 2
+     add $t0, $s6, $t0
+     sll $t1, $s1, 2
+     add $t1, $s7, $t1
+     lw	 $s0, 0($t0)
+     lw	 $t0, 4($t0)
+     add $t0, $t0, $s0
+     sw	 $t0, 0($t1)
+
+2.9) sll  $t0, $s3, 2
+     sll  $t1, $s4, 2
+     add  $t0, $t0, $s6
+     add  $t1, $t1, $s6
+     lw   $t0, 0($t0)
+     lw   $t1, 0($t1)
+     add  $t0, $t1, $t0
+     addi $t1, $s7, 32
+     sw $t0, 0($t1)
+
+2.10) f = A[1] + A[1];
+
+2.12.1) 50000000
+2.12.2) overflow
+2.12.3) 0xB0000000
+2.12.4) no overflow
+2.12.5) D0000000
+2.12.6) overflow
+
+2.13.1) from 2147483520 to 2147483647
+2.13.2) from -2147483648 to -2147483520
+2.13.3) from -2147483648 to -2147483521
+
+
+Problem 2:
+i) ori $t1, $t0, 25
+
+ii) lui $t0, 0x0061
+    ori $t0, $t0, 0xa800
+    lw	$t1, 20($t0)
+    add $t1, $t1, $t3
+    sw 	$t3, 16($t0)
+     
