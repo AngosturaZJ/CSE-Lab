@@ -42,7 +42,8 @@ public class UniformCostSearch {
 
                         for (Waypoint option : node.options) {
                             if (!explored.contains(option.loc.name)) {
-                                if ((checkNode = sortedFrontier.find(option)) != null) {
+                                if (sortedFrontier.contains(option) == true) {
+                                    checkNode = sortedFrontier.find(option);
                                     if (option.partialPathCost < checkNode.partialPathCost) {
                                         sortedFrontier.remove(checkNode);
                                         sortedFrontier.addSorted(option);
