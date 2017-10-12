@@ -1,4 +1,4 @@
-public class AStarSearch {
+/*public class AStarSearch {
     Map graph;
     String initialLoc;
     String destinationLoc;
@@ -16,3 +16,4 @@ public class AStarSearch {
 
     }
 }
+*/

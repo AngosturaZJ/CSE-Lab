@@ -94,37 +94,35 @@ public class SortedFrontier {
 
     // Default constructor ...
     public SortedFrontier() {
-	this.sortingStrategy = SortBy.g;
-	Comparator<Waypoint> sortingComparator 
-	    = new WaypointComparator(this.sortingStrategy);
-	this.fringe = new TreeSet<Waypoint>(sortingComparator);
+		this.sortingStrategy = SortBy.g;
+		Comparator<Waypoint> sortingComparator = new WaypointComparator(this.sortingStrategy);
+		this.fringe = new TreeSet<Waypoint>(sortingComparator);
     }
 
     // Constructor with sorting strategy specified ...
     public SortedFrontier(SortBy strategy) {
-	this.sortingStrategy = strategy;
-	Comparator<Waypoint> sortingComparator 
-	    = new WaypointComparator(this.sortingStrategy);
-	this.fringe = new TreeSet<Waypoint>(sortingComparator);
+		this.sortingStrategy = strategy;
+		Comparator<Waypoint> sortingComparator = new WaypointComparator(this.sortingStrategy);
+		this.fringe = new TreeSet<Waypoint>(sortingComparator);
     }
 
     // isEmpty -- Return true if and only if there are currently no nodes in 
     // the frontier.
     public boolean isEmpty() {
-	return (fringe.isEmpty());
+		return (fringe.isEmpty());
     }
 
     // removeTop -- Return the Waypoint object at the top of the frontier
     // list.  Also, remove this node from the frontier.  Return null if the
     // frontier is empty.
     public Waypoint removeTop() {
-	if (fringe.isEmpty()) {
-	    return (null);
-	} else {
-	    Waypoint top = fringe.first();
-	    fringe.remove(top);
-	    return (top);
-	}
+		if (fringe.isEmpty()) {
+	    	return (null);
+		} else {
+	    	Waypoint top = fringe.first();
+	    	fringe.remove(top);
+	    	return (top);
+		}
     }
 
     // addSorted -- Add the given Waypoint object to the frontier in the
@@ -136,35 +134,35 @@ public class SortedFrontier {
     // addSorted -- Add the given list of Waypoint objects to the frontier
     // in the appropriate positions, given their sorting statistics.
     public void addSorted(List<Waypoint> points) {
-	for (Waypoint wp : points) {
-	    addSorted(wp);
-	}
+		for (Waypoint wp : points) {
+	    	addSorted(wp);
+		}
     }
 
     // remove -- Remove a specified Waypoint object from the frontier.
     public void remove(Waypoint wp) {
-	fringe.remove(wp);
+		fringe.remove(wp);
     }
 
     // remove -- Remove all of the Waypoint objects in the given list from
     // the frontier.
     public void remove(List<Waypoint> points) {
-	for (Waypoint wp : points) {
-	    remove(wp);
-	}
+		for (Waypoint wp : points) {
+	    	remove(wp);
+		}
     }
 
     // contains -- Return true if and only if the frontier contains a
     // Waypoint with the given Location name.
     public boolean contains(String name) {
-	// This linear search is very inefficient, but it cannot be avoided
-	// without maintaining a parallel data structure containing the 
-	// fringe members (e.g., a HashSet) indexed by location name.
-	for (Waypoint element : fringe)
-	    if (name.equals(element.loc.name))
-		return (true);
-	// The location was not found in the fringe ...
-	return (false);
+		// This linear search is very inefficient, but it cannot be avoided
+		// without maintaining a parallel data structure containing the
+		// fringe members (e.g., a HashSet) indexed by location name.
+		for (Waypoint element : fringe)
+	    	if (name.equals(element.loc.name))
+			return (true);
+		// The location was not found in the fringe ...
+		return (false);
     }
 
     // contains -- Return true if and only if the frontier contains a

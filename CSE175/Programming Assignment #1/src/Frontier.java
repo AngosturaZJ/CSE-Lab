@@ -27,67 +27,67 @@ public class Frontier {
 
     // Default constructor ...
     public Frontier() {
-	fringe = new LinkedList<Waypoint>();
+        fringe = new LinkedList<Waypoint>();
     }
 
     // isEmpty -- Return true if and only if there are currently no nodes in 
     // the frontier.
     public boolean isEmpty() {
-	return (fringe.isEmpty());
+        return (fringe.isEmpty());
     }
 
     // removeTop -- Return the Waypoint object at the top of the frontier
     // list.  Also, remove this node from the frontier.  Return null if the
     // frontier is empty.
     public Waypoint removeTop() {
-	if (fringe.isEmpty()) {
-	    return (null);
-	} else {
-	    Waypoint top = fringe.get(0);
-	    fringe.remove(0);
-	    return (top);
-	}
+	    if (fringe.isEmpty()) {
+	        return (null);
+	    } else {
+	        Waypoint top = fringe.get(0);
+	        fringe.remove(0);
+	        return (top);
+	    }
     }
 
     // addToTop -- Add the given Waypoint object to the top of the frontier
     // list.
     public void addToTop(Waypoint wp) {
-	fringe.add(0, wp);
+        fringe.add(0, wp);
     }
 
     // addToTop -- Add the given list of Waypoint objects to the top of the 
     // frontier list.
     public void addToTop(List<Waypoint> points) {
-	for (Waypoint wp : points) {
-	    addToTop(wp);
-	}
+	    for (Waypoint wp : points) {
+	        addToTop(wp);
+	    }
     }
 
     // addToBottom -- Add the given Waypoint object to the bottom of the 
     // frontier list.
     public void addToBottom(Waypoint wp) {
-	fringe.add(wp);
+        fringe.add(wp);
     }
 
     // addToBottom -- Add the given list of Waypoint objects to the bottom of
     // the frontier list.
     public void addToBottom(List<Waypoint> points) {
-	for (Waypoint wp : points) {
-	    addToBottom(wp);
-	}
+	    for (Waypoint wp : points) {
+	        addToBottom(wp);
+	    }
     }
 
     // contains -- Return true if and only if the frontier contains a
     // Waypoint with the given Location name.
     public boolean contains(String name) {
-	// This linear search is very inefficient, but it cannot be avoided
-	// without maintaining a parallel data structure containing the 
-	// fringe members (e.g., a HashSet).
-	for (Waypoint element : fringe)
-	    if (name.equals(element.loc.name))
-		return (true);
-	// The location was not found in the fringe ...
-	return (false);
+	    // This linear search is very inefficient, but it cannot be avoided
+	    // without maintaining a parallel data structure containing the
+	    // fringe members (e.g., a HashSet).
+	    for (Waypoint element : fringe)
+	        if (name.equals(element.loc.name))
+		    return (true);
+	    // The location was not found in the fringe ...
+	    return (false);
     }
 
     // contains -- Return true if and only if the frontier contains a

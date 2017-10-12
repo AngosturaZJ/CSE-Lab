@@ -84,7 +84,7 @@ public class Waypoint {
     // isFinalDestination -- Return true if and only if the name of the
     // location corresponding to this node matches the provided argument.
     public boolean isFinalDestination(String destinationName) {
-        return (loc.name.equals(destinationName));
+		return (loc.name.equals(destinationName));
     }
 
     // reportSolution -- Output a textual description of the path from the 

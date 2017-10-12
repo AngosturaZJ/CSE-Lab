@@ -70,7 +70,7 @@ public class Pone {
 	    	}
 	    	System.out.printf("Number of Node Expansions = %d.\n", ucs.expansionCount);
 
-	    	// Testing greedy search without repeated state checking ...
+	    	/*// Testing greedy search without repeated state checking ...
 	    	System.out.println("TESTING GREEDY SEARCH WITHOUT REPEATED STATE CHECKING");
 	    	GreedySearch gs = new GreedySearch(graph, initialLoc, destinationLoc, limit);
 	    	solution = gs.search(false);
@@ -119,7 +119,7 @@ public class Pone {
 				System.out.printf("Path Cost = %f.\n", solution.partialPathCost);
 	    	}
 	    	System.out.printf("Number of Node Expansions = %d.\n", as.expansionCount);
-
+			*/
 	    	// Done ...
 	    	System.out.println("ALGORITHM COMPARISON COMPLETE");
 		} catch (IOException e) {
