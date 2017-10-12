@@ -1,4 +1,4 @@
-/*public class GreedySearch {
+public class GreedySearch {
     Map graph;
     String initialLoc;
     String destinationLoc;
@@ -16,4 +16,3 @@
 
     }
 }
-*/
