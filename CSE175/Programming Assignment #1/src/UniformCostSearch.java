@@ -19,42 +19,57 @@ public class UniformCostSearch {
 
     public Waypoint search(boolean repeatedChecking) {
         Waypoint node = new Waypoint(graph.findLocation(initialLoc), null);
-        SortedFrontier sortedFrontier = new SortedFrontier(SortBy.g);
-        sortedFrontier.addSorted(node);
         expansionCount = 0;
 
-        while (!sortedFrontier.isEmpty() && node.depth < limit) {
-            node = sortedFrontier.removeTop();
-            if (node.isFinalDestination(destinationLoc)) {
-                return node;
-            } else {
-                node.expand();
-                expansionCount++;
+        if (node.isFinalDestination(destinationLoc)) {
+            return node;
+        } else {
+            SortedFrontier sortedFrontier = new SortedFrontier(SortBy.g);
+            sortedFrontier.addSorted(node);
 
-                if (repeatedChecking) {
-                    Waypoint checkNode;
-                    HashSet<String> explored = new HashSet<String>();
-                    explored.add(node.loc.name);
+            if (repeatedChecking) {
+                HashSet<String> explored = new HashSet<>();
+                while (!sortedFrontier.isEmpty() && node.depth < limit) {
+                    node = sortedFrontier.removeTop();
 
-                    for (Waypoint option : node.options) {
-                        if (!explored.contains(option.loc.name)) {
-                            if ((checkNode=sortedFrontier.find(option)) != null) {
-                                if (option.partialPathCost < checkNode.partialPathCost) {
-                                    sortedFrontier.remove(checkNode);
+                    if (node.isFinalDestination(destinationLoc)) {
+                        return node;
+                    } else {
+                        Waypoint checkNode;
+                        explored.add(node.loc.name);
+                        node.expand();
+                        expansionCount++;
+
+                        for (Waypoint option : node.options) {
+                            if (!explored.contains(option.loc.name)) {
+                                if ((checkNode = sortedFrontier.find(option)) != null) {
+                                    if (option.partialPathCost < checkNode.partialPathCost) {
+                                        sortedFrontier.remove(checkNode);
+                                        sortedFrontier.addSorted(option);
+                                    }
+                                } else {
                                     sortedFrontier.addSorted(option);
                                 }
-                            } else {
-                                sortedFrontier.addSorted(option);
                             }
                         }
                     }
-                } else {
-                    sortedFrontier.addSorted(node.options);
                 }
+                return null;
+            } else {
+                while (!sortedFrontier.isEmpty() && node.depth < limit) {
+                    node = sortedFrontier.removeTop();
+
+                    if (node.isFinalDestination(destinationLoc)) {
+                        return node;
+                    } else {
+                        node.expand();
+                        expansionCount++;
+
+                        sortedFrontier.addSorted(node.options);
+                    }
+                }
+                return null;
             }
-
         }
-        return null;
-
     }
 }
