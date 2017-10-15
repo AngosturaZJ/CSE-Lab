@@ -1,0 +1,2 @@
+1) there are two bugs, pointers move at the wrong value
+2) change integer 1, in line 14 and 15, to 4
