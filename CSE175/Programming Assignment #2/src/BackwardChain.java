@@ -38,13 +38,13 @@ public class BackwardChain {
 
     // Default constructor ...
     public BackwardChain() {
-	this.kb = new KnowledgeBase();
+		this.kb = new KnowledgeBase();
     }
 
     // initKB -- Initialize the knowledge base by interactively requesting
     // file names and reading those files.  Return false on error.
     public boolean initKB() {
-	return (kb.readKB());
+		return (kb.readKB());
     }
 
     // unify -- Return the most general unifier for the two provided literals,
@@ -52,9 +52,9 @@ public class BackwardChain {
     // should be freshly allocated.
     public BindingList unify(Literal lit1, Literal lit2, BindingList bl) {
 	
-	// PROVIDE YOUR CODE HERE!
+		// PROVIDE YOUR CODE HERE!
 
-	return (null);
+		return (null);
     }
 
     // unify -- Return the most general unifier for the two provided terms,
@@ -62,9 +62,9 @@ public class BackwardChain {
     // should be freshly allocated.
     public BindingList unify(Term t1, Term t2, BindingList bl) {
 	
-	// PROVIDE YOUR CODE HERE!
+		// PROVIDE YOUR CODE HERE!
 
-	return (null);
+		return (null);
     }
 
     // unify -- Return the most general unifier for the two provided lists of
@@ -72,35 +72,34 @@ public class BackwardChain {
     // should be freshly allocated.
     public BindingList unify(Function f1, Function f2, BindingList bl) {
 	
-	// PROVIDE YOUR CODE HERE!
+		// PROVIDE YOUR CODE HERE!
 
-	return (null);
+		return (null);
     }
 
     // unify -- Return the most general unifier for the two provided lists of
     // terms, or null if no unification is possible.  The returned binding 
     // list should be freshly allocated.
-    public BindingList unify(List<Term> ts1, List<Term> ts2, 
-			     BindingList bl) {
-	if (bl == null)
-	    return (null);
-	if ((ts1.size() == 0) && (ts2.size() == 0))
-	    // Empty lists match other empty lists ...
-	    return (new BindingList(bl));
-	if ((ts1.size() == 0) || (ts2.size() == 0))
-	    // Ran out of arguments in one list before reaching the
-	    // end of the other list, which means the two argument lists
-	    // can't match ...
-	    return (null);
-	List<Term> terms1 = new LinkedList<Term>();
-	List<Term> terms2 = new LinkedList<Term>();
-	terms1.addAll(ts1);
-	terms2.addAll(ts2);
-	Term t1 = terms1.get(0);
-	Term t2 = terms2.get(0);
-	terms1.remove(0);
-	terms2.remove(0);
-	return (unify(terms1, terms2, unify(t1, t2, bl)));
+    public BindingList unify(List<Term> ts1, List<Term> ts2, BindingList bl) {
+		if (bl == null)
+	    	return (null);
+		if ((ts1.size() == 0) && (ts2.size() == 0))
+	    	// Empty lists match other empty lists ...
+	    	return (new BindingList(bl));
+		if ((ts1.size() == 0) || (ts2.size() == 0))
+	    	// Ran out of arguments in one list before reaching the
+	    	// end of the other list, which means the two argument lists
+	    	// can't match ...
+	    	return (null);
+		List<Term> terms1 = new LinkedList<Term>();
+		List<Term> terms2 = new LinkedList<Term>();
+		terms1.addAll(ts1);
+		terms2.addAll(ts2);
+		Term t1 = terms1.get(0);
+		Term t2 = terms2.get(0);
+		terms1.remove(0);
+		terms2.remove(0);
+		return (unify(terms1, terms2, unify(t1, t2, bl)));
     }
 
     // askFacts -- Examine all of the facts in the knowledge base to
@@ -109,13 +108,13 @@ public class BackwardChain {
     // corresponding most general unifier.  If none is found, return null
     // to indicate failure.
     BindingList askFacts(Literal lit, BindingList bl) {
-	BindingList mgu = null;  // Most General Unifier
-	for (Literal fact : kb.facts) {
-	    mgu = unify(lit, fact, bl);
-	    if (mgu != null)
-		return (mgu);
-	}
-	return (null);
+		BindingList mgu = null;  // Most General Unifier
+		for (Literal fact : kb.facts) {
+		    mgu = unify(lit, fact, bl);
+		    if (mgu != null)
+				return (mgu);
+		}
+		return (null);
     }
 
     // askFacts -- Examine all of the facts in the knowledge base to
@@ -123,7 +122,7 @@ public class BackwardChain {
     // unification is found, return the corresponding most general unifier.
     // If none is found, return null to indicate failure.
     BindingList askFacts(Literal lit) {
-	return (askFacts(lit, new BindingList()));
+		return (askFacts(lit, new BindingList()));
     }
 
     // ask -- Try to prove the given goal literal, under the constraints of
@@ -133,34 +132,34 @@ public class BackwardChain {
     // no proof can be found.  The returned binding list should be freshly
     // allocated.
     BindingList ask(Literal goal, BindingList bl) {
-	BindingList result = askFacts(goal, bl);
-	if (result != null) {
-	    // The literal can be unified with a known fact ...
-	    return (result);
-	}
-	// Need to look at rules ...
-	for (Rule candidateRule : kb.rules) {
-	    if (candidateRule.consequent.pred.equals(goal.pred)) {
-		// The rule head uses the same predicate as the goal ...
-		// Standardize apart ...
-		Rule r = candidateRule.standardizeApart();
-		// Check to see if the consequent unifies with the goal ...
-		result = unify(goal, r.consequent, bl);
+		BindingList result = askFacts(goal, bl);
 		if (result != null) {
-		    // This rule might be part of a proof, if we can prove
-		    // the rule's antecedents ...
-		    result = ask(r.antecedents, result);
-		    if (result != null) {
-			// The antecedents have been proven, so the goal
-			// is proven ...
-			return (result);
-		    }
+		    // The literal can be unified with a known fact ...
+		    return (result);
 		}
-	    }
-	}
-	// No rule that matches has antecedents that can be proven.  Thus,
-	// the search fails ...
-	return (null);
+		// Need to look at rules ...
+		for (Rule candidateRule : kb.rules) {
+		    if (candidateRule.consequent.pred.equals(goal.pred)) {
+				// The rule head uses the same predicate as the goal ...
+				// Standardize apart ...
+				Rule r = candidateRule.standardizeApart();
+				// Check to see if the consequent unifies with the goal ...
+				result = unify(goal, r.consequent, bl);
+				if (result != null) {
+			    	// This rule might be part of a proof, if we can prove
+					// the rule's antecedents ...
+			    	result = ask(r.antecedents, result);
+		    		if (result != null) {
+					// The antecedents have been proven, so the goal
+					// is proven ...
+					return (result);
+		    		}
+				}
+	    	}
+		}
+		// No rule that matches has antecedents that can be proven.  Thus,
+		// the search fails ...
+		return (null);
     }
 
     // ask -- Try to prove the given goal literal using both the list of 
@@ -169,7 +168,7 @@ public class BackwardChain {
     // Return null if no proof can be found.  The returned binding list 
     // should be freshly allocated.
     BindingList ask(Literal goal) {
-	return (ask(goal, new BindingList()));
+		return (ask(goal, new BindingList()));
     }
 
     // ask -- Try to prove the given list of goal literals, under the 
@@ -179,23 +178,23 @@ public class BackwardChain {
     // null if no proof can be found.  The returned binding list should be
     // freshly allocated.
     BindingList ask(List<Literal> goals, BindingList bl) {
-	if (goals.size() == 0) {
-	    // All goals have been satisfied ...
-	    return (bl);
-	} else {
-	    List<Literal> newGoals = new LinkedList<Literal>();
-	    newGoals.addAll(goals);
-	    Literal goal = newGoals.get(0);
-	    newGoals.remove(0);
-	    BindingList firstBL = ask(goal, bl);
-	    if (firstBL == null) {
-		// Failure to prove one of the goals ...
-		return (null);
-	    } else {
-		// Try to prove the remaining goals ...
-		return (ask(newGoals, firstBL));
-	    }
-	}
+		if (goals.size() == 0) {
+		    // All goals have been satisfied ...
+		    return (bl);
+		} else {
+		    List<Literal> newGoals = new LinkedList<Literal>();
+		    newGoals.addAll(goals);
+	    	Literal goal = newGoals.get(0);
+		    newGoals.remove(0);
+	    	BindingList firstBL = ask(goal, bl);
+	    	if (firstBL == null) {
+				// Failure to prove one of the goals ...
+				return (null);
+		    } else {
+			// Try to prove the remaining goals ...
+			return (ask(newGoals, firstBL));
+	    	}
+		}
     }
 
 
