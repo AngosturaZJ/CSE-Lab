@@ -44,7 +44,7 @@ public class BackwardChain {
     // initKB -- Initialize the knowledge base by interactively requesting
     // file names and reading those files.  Return false on error.
     public boolean initKB() {
-		return (kb.readKB());
+        return (kb.readKB());
     }
 
     // unify -- Return the most general unifier for the two provided literals,
@@ -53,7 +53,12 @@ public class BackwardChain {
     public BindingList unify(Literal lit1, Literal lit2, BindingList bl) {
 	
 		// PROVIDE YOUR CODE HERE!
-
+        // check whether both literals are the same
+        // literals can only match when they have the exact same predicate
+    	if (lit1.pred.equals(lit2.pred)) {
+    	    // when both literals are matched, they will bind
+    		return unify(lit1.args, lit2.args, bl);
+    	}
 		return (null);
     }
 
@@ -63,7 +68,69 @@ public class BackwardChain {
     public BindingList unify(Term t1, Term t2, BindingList bl) {
 	
 		// PROVIDE YOUR CODE HERE!
-
+        // create a new BindingList for freshly allocated
+    	BindingList new_bl = new BindingList(bl);
+    	// CASE 1, t1 and t2 are both constant
+    	if (t1.c != null) {                   // check for whether t1 is constant or not
+    		if (t2.c != null) {               // check for whether t2 is constant or not
+    			if (t1.equals(t2)) {          // t1 and t2 are exactly the same thing
+                    // t1 and t2 matched, so they will bind
+                    // although we don't need modify binding list, in order to return freshly allocated
+                    // binding list, we have to return new binding list, called new_bl
+					return new_bl;
+				}
+    		}
+    		if (t2.v != null) {               // when t2 is variable
+                // when one term is constant and another is variable, constant can be bind into variable
+    			return unify(t2, t1, new_bl);
+    		}
+    	}
+    	// CASE 1 done
+    	
+    	// CASE 2, t1 is variable
+    	if (t1.v != null) {
+    	    // create a new Term object, called bind1, it is used to check whether t1 is bound or not
+    		Term bind1 = bl.boundValue(t1.v);
+    		if (bind1 != null) {     // when t1 is bound
+    			return unify(t2, bind1, new_bl);
+    		}
+    		// when t2 is constant
+    		if (t2.c != null) {
+    		    // in order to bind unbound variable to constant, we have to add binding
+    			new_bl.addBinding(t1.v, t2);
+    			return new_bl;      // return the new binding list
+    		}
+    		// when t2 is variable
+    		if (t2.v != null) {
+    		    // when t1 and t2 are both unbound variables, we do not need modify anything
+    			if (t1.v.equals(t2.v)) {
+    				return new_bl;      // return new_bl for freshly allocated
+    			}
+    			// create a new Term object, call Bind, for checking whether t2 is bound or not
+    			Term bind2 = bl.boundValue(t2.v);
+    			if (bind2 != null) {        // when t2 is bound
+    				return unify(t1, bind2, new_bl);
+    			} else {
+    			    // when both terms are not bound, we can add binding to unify them
+    				new_bl.addBinding(t2.v, t1);
+    				return new_bl;
+    			}
+    		}
+    	}
+    	// CASE 2 done
+    	
+    	// CASE 3, t1 is function
+    	if (t1.f != null) {
+    		if (t2.v != null) {     // when t2 is variable
+                // change the order of t1 and t2 to avoid infinite loop
+    			return unify(t2, t1, new_bl);
+    		}
+    		if (t2.f != null) {     // when t2 is function
+    			return unify(t1.f, t2.f, new_bl);
+    		}
+    	}
+    	// CASE 3 done
+        // in the case of t1 is function and t2 is constant, this method will return null
 		return (null);
     }
 
@@ -73,7 +140,10 @@ public class BackwardChain {
     public BindingList unify(Function f1, Function f2, BindingList bl) {
 	
 		// PROVIDE YOUR CODE HERE!
-
+        // this method is called when both terms are function
+    	if (f1.func.equals(f2.func)) {
+    		return unify(f1.args, f2.args, bl);
+    	}
 		return (null);
     }
 
