@@ -204,6 +204,26 @@ public class Layer {
     public void computeOutputDelta() {
 
 	// PLACE YOUR CODE HERE ...
+        // recreate delta vector, set it to n-dimension and initial value with 0
+        delta = new Vector(n, 0.0);
+
+        // calculate the difference when targ vector minus act vector
+        Vector error = targ.difference(act);
+
+        // partial derivative of the logistic sigmoid function
+        Vector derivative = net.derivative(min, max);
+
+        // create a new vector to store value of error times derivative
+        // the vector has n-dimension and initial value with 0
+        Vector partial_delta = new Vector(n, 0.0);
+
+        for (int i = 0; i < n; i++) {
+            // calculating and storing the values error times derivative into vector called partial_delta one-by-one
+            partial_delta.set(i, error.get(i) * derivative.get(i));
+        }
+
+        // sum up all values that store in partial_delta and pass to delta
+        delta = delta.sum(partial_delta);
 
     }
 
@@ -212,6 +232,31 @@ public class Layer {
     public void computeHiddenDelta() {
 
 	// PLACE YOUR CODE HERE ...
+        // recreate delta vector, set it to n-dimension and initial value with 0
+        delta = new Vector(n, 0.0);
+
+        // partial derivative of the logistic sigmoid function for each unit
+        Vector derivative = net.derivative(min, max);
+
+        // the vector has n-dimension and initial value with 0
+        Vector partial_delta = new Vector(n, 0.0);
+
+        // map the downstream layer
+        for (Projection out_projection : outputs) {
+            // create a new vector to store transposed matrix of downstream weight
+            Matrix transposed_matrix = out_projection.W.transpose();
+
+            // store the product of delta and weight from downstream into new vector
+            Vector delta_from_downstream  = transposed_matrix.product(out_projection.output.delta);
+
+            for (int i = 0; i < n; i++) {
+                partial_delta.set(i, delta_from_downstream.get(i) * derivative.get(i));
+            }
+
+            // sum up all values that store in partial_delta and pass to delta
+            delta = delta.sum(partial_delta);
+        }
+
 
     }
 
